@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sri Explore Admin</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <section class="login-panel" id="loginPanel">
+      <p class="eyebrow">SRI EXPLORE</p>
+      <h1>Admin sign in</h1>
+      <p class="muted">Manage travel enquiries and newsletter subscribers.</p>
+      <form id="loginForm">
+        <label for="username">Admin email</label>
+        <input id="username" name="username" type="email" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button type="submit">Sign in</button>
+        <button class="auth-link" id="adminForgotPassword" type="button">Forgot admin password?</button>
+        <p class="form-message" id="loginMessage" role="alert"></p>
+      </form>
+    </section>
+
+    <section class="dashboard" id="dashboard" hidden>
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow">SRI EXPLORE</p>
+          <h1>Submissions</h1>
+        </div>
+          <div class="dashboard-actions">
+            <button class="secondary" id="refreshButton" type="button">Refresh</button>
+            <button class="secondary" id="logoutButton" type="button">Log out</button>
+          </div>
+      </header>
+      <div class="summary" id="summary"></div>
+      <p class="form-message" id="dashboardMessage" role="alert"></p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Destination</th>
+                <th>Transport</th>
+              <th>Message</th>
+              <th>Received</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="submissionsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="auth.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
