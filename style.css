@@ -323,16 +323,9 @@ button:focus-visible, a:focus-visible { outline: 3px solid #f3ad55; outline-offs
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
-.kerala-hero {
-  display: flex;
-  align-items: center;
-  background: linear-gradient(90deg, rgba(9, 34, 31, .75), rgba(9, 34, 31, .15)),
-    url('https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=2000&q=85') center 52% / cover;
-}
-.hero-inner { position: relative; display: flex; align-items: center; height: 100%; }
-.hero-copy { max-width: 650px; padding-top: 45px; color: #fff; }
-.hero-note { position: absolute; right: 0; bottom: 100px; display: flex; align-items: center; gap: 12px; color: #fff; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
-.hero-note span:first-child { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; }
+.destination-carousel .hero-slide { padding-top: 150px; padding-bottom: 120px; }
+.destination-carousel .hero-dots { z-index: 4; bottom: 94px; }
+.destination-carousel .hero-arrow { z-index: 4; }
 .search-intro { margin: -8px 0 16px; color: var(--muted); font-size: .9rem; }
 .place-photo { position: relative; overflow: hidden; background: linear-gradient(135deg, #dcebe4, #f0e6d4); }
 .place-photo > img { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -361,10 +354,13 @@ button:focus-visible, a:focus-visible { outline: 3px solid #f3ad55; outline-offs
 .place-result-copy > strong { font-size: .95rem; }
 .place-search-result .btn { min-width: 86px; }
 
+@media (max-width: 760px) {
+  .destination-carousel .hero-arrow { top: 45%; bottom: auto; transform: translateY(-50%); }
+  .destination-carousel .hero-dots { bottom: 92px; }
+}
+
 @media (max-width: 680px) {
-  .kerala-hero { min-height: 590px; background-position: 58% center; }
-  .hero-copy { padding-top: 55px; }
-  .hero-note { right: auto; bottom: 80px; left: 0; font-size: .68rem; }
+  .destination-carousel .hero-slide { padding: 130px 28px 125px; }
   .place-search-result { grid-template-columns: 82px minmax(0, 1fr); gap: 10px; }
   .search-place-photo { width: 82px; height: 72px; grid-row: span 2; }
   .place-result-copy { min-height: 40px; }

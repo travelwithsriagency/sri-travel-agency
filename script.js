@@ -259,9 +259,8 @@ const packageCatalog = [
 const renderTravelCatalog = () => {
   const destinationGrid = document.querySelector('.dest-grid');
   const packageGrid = document.querySelector('.package-grid');
+  const selectedState = document.getElementById('destinationState')?.value || 'Kerala';
   if (destinationGrid) {
-    const destinationState = document.getElementById('destinationState');
-    const selectedState = destinationState?.value || 'Kerala';
     const selectedPlaces = touristPlaces.filter((spot) => spot.state === selectedState);
     const heading = document.getElementById('destinationHeading');
     const description = document.getElementById('destinationDescription');
@@ -270,7 +269,7 @@ const renderTravelCatalog = () => {
     destinationGrid.innerHTML = selectedPlaces.map((spot) => {
       const placeIndex = touristPlaces.indexOf(spot);
       return `
-        <article class="dest-card reveal" data-place-index="${placeIndex}">
+        <article class="dest-card revealed" data-place-index="${placeIndex}">
           <div class="dest-img-box place-photo is-loading">
             <img alt="Photograph of ${escapeHtml(spot.name)}, ${escapeHtml(spot.state)}">
             <a class="photo-credit" target="_blank" rel="noopener noreferrer" hidden></a>
@@ -292,17 +291,51 @@ const renderTravelCatalog = () => {
     });
   }
   if (packageGrid) {
-    const featuredPackages = [...packageCatalog].sort((left, right) =>
-      Number(right.id === 'kerala-backwaters') - Number(left.id === 'kerala-backwaters')
+    const packageHeading = document.getElementById('packageHeading');
+    const packageDescription = document.getElementById('packageDescription');
+    const places = touristPlaces.filter((spot) => spot.state === selectedState);
+    const itineraries = Array.from({ length: Math.ceil(places.length / 3) }, (_, index) =>
+      places.slice(index * 3, index * 3 + 3)
     );
-    packageGrid.innerHTML = featuredPackages.map((item) => `
-      <article class="package-card reveal" data-package="${item.id}">
-        <div class="package-img-box"><img src="${item.image}" alt="${item.name}" loading="lazy">${item.badge ? `<span class="package-badge">${item.badge}</span>` : ''}</div>
-        <div class="package-body"><div class="package-top"><h3>${item.name}</h3><span class="package-rating">★ ${item.rating}</span></div>
-          <p class="package-duration">${item.destination} · ${item.duration}</p><ul class="package-includes">${item.includes.map((include) => `<li>✓ ${include}</li>`).join('')}</ul>
-          <p class="package-price">From <strong>${item.price}</strong></p><div class="package-actions"><button class="btn btn-outline view-details" data-package="${item.id}">View Package</button><a href="#contact" class="btn btn-primary" data-requires-auth>Book Now</a></div>
-        </div>
-      </article>`).join('');
+    if (packageHeading) packageHeading.textContent = `${selectedState} trip ideas`;
+    if (packageDescription) {
+      packageDescription.textContent = `Explore suggested ${selectedState} itineraries, see the highlights and plan your own trip.`;
+    }
+    packageGrid.innerHTML = itineraries.map((itinerary, index) => {
+      const firstPlace = itinerary[0];
+      const firstPlaceIndex = touristPlaces.indexOf(firstPlace);
+      const itineraryName = index === 0
+        ? `Best of ${selectedState}`
+        : `${firstPlace.name.split(',')[0]} & nearby`;
+      const itineraryPlaces = itinerary.map((spot) => escapeHtml(spot.name));
+      return `
+        <article class="package-card state-package-card">
+          <div class="package-img-box place-photo is-loading">
+            <img alt="${escapeHtml(firstPlace.name)}, ${escapeHtml(selectedState)}" loading="lazy">
+            <span class="package-badge">Suggested itinerary</span>
+            <a class="photo-credit" target="_blank" rel="noopener noreferrer" hidden></a>
+          </div>
+          <div class="package-body">
+            <span class="dest-location">${escapeHtml(selectedState)} · ${itinerary.length} highlights</span>
+            <h3>${escapeHtml(itineraryName)}</h3>
+            <p class="package-description">Visit ${itineraryPlaces.join(', ')}. Adjust your dates, stay, transport and meals to suit your trip.</p>
+            <ul class="package-includes">
+              <li>✓ Local sightseeing</li>
+              <li>✓ Flexible travel dates</li>
+              <li>✓ Stay options</li>
+              <li>✓ Transport planning</li>
+            </ul>
+            <div class="package-actions">
+              <a href="#contact" class="btn btn-primary" data-requires-auth data-state="${escapeHtml(selectedState)}" data-spot="${escapeHtml(firstPlace.name)}">Plan this trip</a>
+              <button type="button" class="btn btn-outline" data-explore-place="${firstPlaceIndex}">View photos</button>
+            </div>
+          </div>
+        </article>`;
+    }).join('');
+    packageGrid.querySelectorAll('.state-package-card').forEach((card, index) => {
+      const spot = itineraries[index][0];
+      loadPlaceImage(card.querySelector('img'), card.querySelector('.photo-credit'), spot);
+    });
   }
 };
 
@@ -362,6 +395,62 @@ document.addEventListener('DOMContentLoaded', () => {
   renderTravelCatalog();
   const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
+  const slides = [...document.querySelectorAll('.hero-slide')];
+  const heroDots = document.getElementById('heroDots');
+  let currentSlide = 0;
+  let slideTimer;
+  const showSlide = (index) => {
+    currentSlide = (index + slides.length) % slides.length;
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === currentSlide;
+      slide.classList.toggle('active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+    });
+    heroDots?.querySelectorAll('.hero-dot').forEach((dot, dotIndex) => {
+      dot.classList.toggle('active', dotIndex === currentSlide);
+      dot.setAttribute('aria-current', String(dotIndex === currentSlide));
+    });
+  };
+  const restartCarousel = () => {
+    clearInterval(slideTimer);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      slideTimer = setInterval(() => showSlide(currentSlide + 1), 6000);
+    }
+  };
+  if (slides.length && heroDots) {
+    slides.forEach((_, index) => {
+      const dot = document.createElement('button');
+      dot.className = 'hero-dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Show destination ${index + 1}`);
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        restartCarousel();
+      });
+      heroDots.append(dot);
+    });
+    document.getElementById('prevSlide')?.addEventListener('click', () => {
+      showSlide(currentSlide - 1);
+      restartCarousel();
+    });
+    document.getElementById('nextSlide')?.addEventListener('click', () => {
+      showSlide(currentSlide + 1);
+      restartCarousel();
+    });
+    showSlide(0);
+    restartCarousel();
+    document.querySelector('.destination-carousel')?.addEventListener('mouseenter', () => clearInterval(slideTimer));
+    document.querySelector('.destination-carousel')?.addEventListener('mouseleave', restartCarousel);
+  }
+  document.querySelectorAll('[data-destination-state]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const destinationState = document.getElementById('destinationState');
+      if (destinationState?.querySelector(`option[value="${CSS.escape(link.dataset.destinationState)}"]`)) {
+        destinationState.value = link.dataset.destinationState;
+        destinationState.dispatchEvent(new Event('change'));
+      }
+    });
+  });
   hamburger?.addEventListener('click', () => {
     navbar.classList.toggle('nav-open');
     hamburger.setAttribute('aria-label', navbar.classList.contains('nav-open') ? 'Close menu' : 'Open menu');

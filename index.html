@@ -34,17 +34,51 @@
       <span></span>
     </button>
   </header>
-  <!-- ============================ HERO CAROUSEL ============================ -->
-  <section class="hero kerala-hero" id="home">
-    <div class="container hero-inner">
-      <div class="hero-copy">
+  <!-- ============================ DESTINATION CAROUSEL ============================ -->
+  <section class="hero destination-carousel" id="home" aria-label="Featured destinations">
+    <article class="hero-slide slide-kerala active" aria-hidden="false">
+      <div class="container slide-content">
         <span class="slide-destination">KERALA · INDIA</span>
         <h1 class="slide-title">A little closer to paradise.</h1>
         <p class="slide-text">From quiet backwaters to misty tea hills, find the Kerala trip that feels like yours.</p>
-        <a href="#destinations" class="btn btn-light slide-btn">Explore Kerala <span aria-hidden="true">→</span></a>
+        <a href="#destinations" class="btn btn-light slide-btn" data-destination-state="Kerala">Explore Kerala <span aria-hidden="true">→</span></a>
       </div>
-      <div class="hero-note"><span>01</span><span>Backwaters · Beaches · Hills</span></div>
-    </div>
+    </article>
+    <article class="hero-slide slide-goa" aria-hidden="true">
+      <div class="container slide-content">
+        <span class="slide-destination">GOA · INDIA</span>
+        <h1 class="slide-title">Find your own stretch of sunshine.</h1>
+        <p class="slide-text">Golden beaches, coastal forts and colourful days along India’s western shore.</p>
+        <a href="#destinations" class="btn btn-light slide-btn" data-destination-state="Goa">Explore Goa <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    <article class="hero-slide slide-rajasthan" aria-hidden="true">
+      <div class="container slide-content">
+        <span class="slide-destination">RAJASTHAN · INDIA</span>
+        <h1 class="slide-title">Stories written in sand and stone.</h1>
+        <p class="slide-text">Discover royal forts, desert horizons and the lively colours of Rajasthan.</p>
+        <a href="#destinations" class="btn btn-light slide-btn" data-destination-state="Rajasthan">Explore Rajasthan <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    <article class="hero-slide slide-ladakh" aria-hidden="true">
+      <div class="container slide-content">
+        <span class="slide-destination">LADAKH · INDIA</span>
+        <h1 class="slide-title">Take the long way to wonder.</h1>
+        <p class="slide-text">High mountain passes, quiet monasteries and wide-open Himalayan skies.</p>
+        <a href="#destinations" class="btn btn-light slide-btn" data-destination-state="Ladakh">Explore Ladakh <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    <article class="hero-slide slide-andaman" aria-hidden="true">
+      <div class="container slide-content">
+        <span class="slide-destination">ANDAMAN · INDIA</span>
+        <h1 class="slide-title">Let island time find you.</h1>
+        <p class="slide-text">Clear blue water, coral shores and unhurried days in the Andaman Islands.</p>
+        <a href="#destinations" class="btn btn-light slide-btn" data-destination-state="Andaman and Nicobar Islands">Explore Andaman <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    <button class="hero-arrow hero-prev" id="prevSlide" type="button" aria-label="Previous destination">&#10094;</button>
+    <button class="hero-arrow hero-next" id="nextSlide" type="button" aria-label="Next destination">&#10095;</button>
+    <div class="hero-dots" id="heroDots" aria-label="Choose a featured destination"></div>
   </section>
   <!-- ============================ PLACE SEARCH ============================ -->
   <section class="search-section">
@@ -82,8 +116,8 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Packages</span>
-        <h2 class="section-title">Kerala trips and India favourites</h2>
-        <p class="section-subtitle">Start with our Kerala backwater trail, then explore popular itineraries across India.</p>
+        <h2 class="section-title" id="packageHeading">Kerala trip ideas</h2>
+        <p class="section-subtitle" id="packageDescription">Choose a state above to see its suggested itineraries and plan the places you want to visit.</p>
       </div>
       <div class="package-grid">
         <!-- Package 1 -->
