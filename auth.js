@@ -1,5 +1,10 @@
 const userAuthPanel = document.getElementById('userAuthPanel');
-const entryGate = document.getElementById('entryGate');
+const bookingForm = document.getElementById('contactForm');
+const bookingAuthPrompt = document.getElementById('bookingAuthPrompt');
+let pendingBooking = false;
+let pendingBookingPackage = '';
+let pendingBookingState = '';
+let pendingBookingSpot = '';
 
 const authMessage = (error) => ({
   'auth/email-already-in-use': 'An account already exists for this email.',
@@ -30,76 +35,6 @@ const createUserRecord = async (user, details = {}) => {
   }, { merge: true });
 };
 
-if (entryGate) {
-  const entryLoginForm = document.getElementById('entryLoginForm');
-  const entryRegisterForm = document.getElementById('entryRegisterForm');
-  const entryLoginMessage = document.getElementById('entryLoginMessage');
-  const entryRegisterMessage = document.getElementById('entryRegisterMessage');
-  let entryAuthAttemptInProgress = false;
-  const showEntryMode = (mode) => {
-    const register = mode === 'register';
-    entryLoginForm.hidden = register;
-    entryRegisterForm.hidden = !register;
-    document.getElementById('entryLoginTab').classList.toggle('active', !register);
-    document.getElementById('entryRegisterTab').classList.toggle('active', register);
-  };
-
-  document.getElementById('entryLoginTab').addEventListener('click', () => showEntryMode('login'));
-  document.getElementById('entryRegisterTab').addEventListener('click', () => showEntryMode('register'));
-  entryLoginForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    entryAuthAttemptInProgress = true;
-    entryLoginMessage.textContent = 'Signing in...';
-    try {
-      await authPersistence;
-      await firebaseAuth.signInWithEmailAndPassword(document.getElementById('entryLoginEmail').value.trim(), document.getElementById('entryLoginPassword').value);
-      entryGate.hidden = true;
-      entryLoginMessage.textContent = '';
-      returnToHome();
-    } catch (error) {
-      entryAuthAttemptInProgress = false;
-      entryLoginMessage.textContent = authMessage(error);
-    }
-  });
-  entryRegisterForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    entryAuthAttemptInProgress = true;
-    entryRegisterMessage.textContent = 'Creating your account...';
-    try {
-      await authPersistence;
-      const name = document.getElementById('entryName').value.trim();
-      const email = document.getElementById('entryEmail').value.trim();
-      const credential = await firebaseAuth.createUserWithEmailAndPassword(email, document.getElementById('entryPassword').value);
-      await credential.user.updateProfile({ displayName: name });
-      await createUserRecord(credential.user, { name, email });
-      entryGate.hidden = true;
-      entryRegisterMessage.textContent = `Account created. Your unique ID is ${credential.user.uid}.`;
-      returnToHome();
-    } catch (error) {
-      entryAuthAttemptInProgress = false;
-      entryRegisterMessage.textContent = authMessage(error);
-    }
-  });
-  document.getElementById('entryForgotPassword').addEventListener('click', async () => {
-    const email = document.getElementById('entryLoginEmail').value.trim();
-    if (!email) {
-      entryLoginMessage.textContent = 'Enter your email first.';
-      return;
-    }
-    try {
-      await firebaseAuth.sendPasswordResetEmail(email);
-      entryLoginMessage.textContent = 'Password reset instructions were sent to your email.';
-    } catch (error) {
-      entryLoginMessage.textContent = authMessage(error);
-    }
-  });
-  firebaseAuth.onAuthStateChanged((user) => {
-    if (user) entryAuthAttemptInProgress = false;
-    entryGate.hidden = Boolean(user) || entryAuthAttemptInProgress;
-    document.body.classList.toggle('authenticated', Boolean(user));
-  });
-}
-
 if (userAuthPanel) {
   const userLoginForm = document.getElementById('userLoginForm');
   const userRegisterForm = document.getElementById('userRegisterForm');
@@ -110,6 +45,7 @@ if (userAuthPanel) {
   const userRegisterMessage = document.getElementById('userRegisterMessage');
   const userForgotPassword = document.getElementById('userForgotPassword');
   const userLogout = document.getElementById('userLogout');
+  const accountNavLink = document.getElementById('accountNavLink');
 
   const setMessage = (element, message) => { element.textContent = message; };
   const showMode = (mode) => {
@@ -122,6 +58,10 @@ if (userAuthPanel) {
 
   const showAccount = (user) => {
     const signedIn = Boolean(user);
+    if (bookingForm) bookingForm.hidden = !signedIn;
+    if (bookingAuthPrompt) bookingAuthPrompt.hidden = signedIn;
+    if (accountNavLink) accountNavLink.textContent = signedIn ? 'My account' : 'Sign in';
+    document.body.classList.toggle('authenticated', signedIn);
     userLoginForm.hidden = signedIn;
     userRegisterForm.hidden = signedIn;
     userLoginTab.hidden = signedIn;
@@ -132,6 +72,51 @@ if (userAuthPanel) {
       document.getElementById('userAccountId').textContent = user.uid;
     }
   };
+
+  const continueAfterAuthentication = () => {
+    if (!pendingBooking) {
+      returnToHome();
+      return;
+    }
+    const stateSelect = document.getElementById('contactState');
+    if (stateSelect && pendingBookingState) {
+      stateSelect.value = pendingBookingState;
+      stateSelect.dispatchEvent(new Event('change'));
+    }
+    const selectedPlace = [...document.querySelectorAll('#spotPicker input')].find((input) => input.value === pendingBookingSpot);
+    if (selectedPlace) {
+      selectedPlace.checked = true;
+      selectedPlace.dispatchEvent(new Event('change'));
+    }
+    const packageSelect = document.getElementById('contactPackage');
+    if (packageSelect) packageSelect.value = pendingBookingPackage || 'custom';
+    if (pendingBookingState && pendingBookingSpot) {
+      document.dispatchEvent(new CustomEvent('trip-place-selected', {
+        detail: { state: pendingBookingState, place: pendingBookingSpot }
+      }));
+    }
+    pendingBooking = false;
+    pendingBookingPackage = '';
+    pendingBookingState = '';
+    pendingBookingSpot = '';
+    window.location.hash = '#contact';
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const bookingLink = event.target.closest('a[data-requires-auth]');
+    if (!bookingLink || firebaseAuth.currentUser) return;
+
+    event.preventDefault();
+    pendingBooking = true;
+    pendingBookingPackage = bookingLink.closest('[data-package]')?.dataset.package || '';
+    pendingBookingState = bookingLink.dataset.state || '';
+    pendingBookingSpot = bookingLink.dataset.spot || '';
+    showMode('login');
+    setMessage(userLoginMessage, 'Sign in or create an account to continue with your trip.');
+    window.location.hash = '#account';
+  });
 
   userLoginTab.addEventListener('click', () => showMode('login'));
   userRegisterTab.addEventListener('click', () => showMode('register'));
@@ -146,7 +131,7 @@ if (userAuthPanel) {
         document.getElementById('userLoginPassword').value
       );
       setMessage(userLoginMessage, '');
-      returnToHome();
+      continueAfterAuthentication();
     } catch (error) {
       setMessage(userLoginMessage, authMessage(error));
     }
@@ -163,6 +148,7 @@ if (userAuthPanel) {
       await credential.user.updateProfile({ displayName: name });
       await createUserRecord(credential.user, { name, email, phone });
       setMessage(userRegisterMessage, 'Account created. Your unique ID is shown below.');
+      continueAfterAuthentication();
     } catch (error) {
       setMessage(userRegisterMessage, authMessage(error));
     }

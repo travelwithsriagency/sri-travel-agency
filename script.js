@@ -67,6 +67,172 @@ const indiaSpots = [
   return { name, state, summary, image: imageSet[index % imageSet.length], baseCost, price: `₹${baseCost.toLocaleString('en-IN')}` };
 });
 
+const touristPlacesByState = [
+  ['Andhra Pradesh', ['Tirumala Venkateswara Temple', 'Araku Valley', 'RK Beach, Visakhapatnam', 'Borra Caves', 'Undavalli Caves']],
+  ['Arunachal Pradesh', ['Tawang Monastery', 'Sela Pass', 'Ziro Valley', 'Bomdila Monastery', 'Namdapha National Park']],
+  ['Assam', ['Kaziranga National Park', 'Kamakhya Temple, Guwahati', 'Majuli Island', 'Manas National Park', 'Sivasagar Ahom monuments']],
+  ['Bihar', ['Mahabodhi Temple, Bodh Gaya', 'Nalanda Mahavihara', 'Rajgir and Vishwa Shanti Stupa', 'Vaishali archaeological site', 'Vikramshila ruins']],
+  ['Chhattisgarh', ['Chitrakote Falls', 'Kanger Valley National Park', 'Bastar and Jagdalpur', 'Sirpur heritage site', 'Bhoramdeo Temple']],
+  ['Goa', ['Baga Beach', 'Calangute Beach', 'Palolem Beach', 'Basilica of Bom Jesus', 'Fort Aguada', 'Dudhsagar Falls', 'Anjuna Beach', 'Colva Beach']],
+  ['Gujarat', ['Statue of Unity, Kevadia', 'Rann of Kutch', 'Somnath Temple', 'Dwarkadhish Temple', 'Gir National Park', 'Rani ki Vav, Patan']],
+  ['Haryana', ['Sultanpur National Park', 'Kurukshetra and Brahma Sarovar', 'Morni Hills', 'Pinjore Gardens', 'Surajkund']],
+  ['Himachal Pradesh', ['Shimla and The Ridge', 'Manali and Solang Valley', 'Dharamshala and McLeod Ganj', 'Khajjiar', 'Spiti Valley', 'Bir Billing']],
+  ['Jharkhand', ['Betla National Park', 'Baidyanath Temple, Deoghar', 'Hundru Falls', 'Dassam Falls', 'Netarhat']],
+  ['Karnataka', ['Hampi monuments', 'Mysore Palace', 'Coorg (Kodagu)', 'Gokarna beaches', 'Jog Falls', 'Wonderla Bengaluru', 'Bengaluru Palace']],
+  ['Kerala', ['Fort Kochi Beach', 'Cherai Beach, Kochi', 'Wonderla Kochi', 'Alappuzha Backwaters', 'Munnar tea gardens', 'Wayanad wildlife and waterfalls', 'Varkala Beach', 'Kovalam Beach', 'Athirappilly Waterfalls', 'Periyar Wildlife Sanctuary']],
+  ['Madhya Pradesh', ['Khajuraho Group of Monuments', 'Sanchi Stupa', 'Kanha National Park', 'Bandhavgarh National Park', 'Bhedaghat Marble Rocks', 'Ujjain Mahakaleshwar Temple', 'Pachmarhi']],
+  ['Maharashtra', ['Gateway of India, Mumbai', 'Ajanta Caves', 'Ellora Caves', 'Lonavala and Khandala', 'Mahabaleshwar', 'Shirdi Sai Baba Temple', 'Tadoba-Andhari Tiger Reserve', 'Elephanta Caves']],
+  ['Manipur', ['Loktak Lake', 'Kangla Fort, Imphal', 'Keibul Lamjao National Park', 'Shirui Hills', 'INA Memorial, Moirang']],
+  ['Meghalaya', ['Shillong and Umiam Lake', 'Cherrapunji (Sohra)', 'Dawki and Umngot River', 'Mawlynnong Village', 'Nongriat Living Root Bridges']],
+  ['Mizoram', ['Aizawl and Solomon’s Temple', 'Reiek', 'Vantawng Falls', 'Phawngpui (Blue Mountain)', 'Hmuifang']],
+  ['Nagaland', ['Kohima War Cemetery', 'Dzukou Valley', 'Khonoma Heritage Village', 'Mokokchung', 'Kisama Heritage Village']],
+  ['Odisha', ['Jagannath Temple and Puri Beach', 'Konark Sun Temple', 'Lingaraj Temple, Bhubaneswar', 'Chilika Lake', 'Similipal National Park', 'Dhauli Shanti Stupa']],
+  ['Punjab', ['Golden Temple, Amritsar', 'Jallianwala Bagh', 'Wagah-Attari Border', 'Anandpur Sahib', 'Qila Mubarak, Patiala']],
+  ['Rajasthan', ['Hawa Mahal, Jaipur', 'Jaisalmer Fort', 'Mehrangarh Fort, Jodhpur', 'Lake Pichola, Udaipur', 'Ranthambore National Park', 'Chittorgarh Fort', 'Pushkar Lake']],
+  ['Sikkim', ['Gangtok and MG Marg', 'Tsomgo Lake', 'Nathula Pass', 'Pelling and Pemayangtse Monastery', 'Gurudongmar Lake']],
+  ['Tamil Nadu', ['Marina Beach, Chennai', 'Meenakshi Amman Temple, Madurai', 'Mahabalipuram Shore Temple', 'Ooty and Nilgiri Mountain Railway', 'Kodaikanal Lake', 'Rameswaram Ramanathaswamy Temple', 'Kanyakumari viewpoint', 'Brihadeeswarar Temple, Thanjavur', 'Adiyogi, Coimbatore']],
+  ['Telangana', ['Charminar, Hyderabad', 'Ramoji Film City', 'Golconda Fort', 'Hussain Sagar Lake', 'Thousand Pillar Temple, Warangal', 'Yadadri Temple']],
+  ['Tripura', ['Ujjayanta Palace, Agartala', 'Neermahal Palace', 'Unakoti rock carvings', 'Tripura Sundari Temple', 'Jampui Hills']],
+  ['Uttar Pradesh', ['Taj Mahal, Agra', 'Varanasi Ghats', 'Ram Mandir, Ayodhya', 'Fatehpur Sikri', 'Bara Imambara, Lucknow', 'Sarnath', 'Prem Mandir, Vrindavan']],
+  ['Uttarakhand', ['Rishikesh and Lakshman Jhula', 'Nainital Lake', 'Mussoorie and Kempty Falls', 'Kedarnath Temple', 'Jim Corbett National Park', 'Auli', 'Valley of Flowers']],
+  ['West Bengal', ['Victoria Memorial, Kolkata', 'Darjeeling Himalayan Railway', 'Sundarbans National Park', 'Digha Beach', 'Kalimpong', 'Bishnupur terracotta temples']],
+  ['Andaman and Nicobar Islands', ['Radhanagar Beach, Havelock Island', 'Cellular Jail, Port Blair', 'Shaheed Dweep (Neil Island)', 'Netaji Subhas Chandra Bose Island', 'Baratang limestone caves']],
+  ['Chandigarh', ['Rock Garden', 'Sukhna Lake', 'Capitol Complex', 'Rose Garden']],
+  ['Dadra and Nagar Haveli and Daman and Diu', ['Diu Fort', 'Nagoa Beach, Diu', 'Jampore Beach, Daman', 'Vanganga Lake Garden, Silvassa', 'Dudhni Lake']],
+  ['Delhi', ['Red Fort', 'Qutub Minar', 'India Gate', 'Humayun’s Tomb', 'Akshardham Temple', 'Lotus Temple']],
+  ['Jammu and Kashmir', ['Dal Lake, Srinagar', 'Gulmarg', 'Pahalgam', 'Vaishno Devi Temple', 'Sonamarg', 'Mughal Gardens, Srinagar']],
+  ['Ladakh', ['Leh Palace', 'Pangong Tso', 'Nubra Valley', 'Hemis Monastery', 'Tso Moriri', 'Khardung La']],
+  ['Lakshadweep', ['Agatti Island', 'Bangaram Island', 'Kavaratti Island', 'Kadmat Island', 'Minicoy Island']],
+  ['Puducherry', ['White Town, Puducherry', 'Promenade Beach', 'Auroville', 'Paradise Beach', 'Basilica of the Sacred Heart of Jesus']]
+];
+
+const touristPlaces = touristPlacesByState.flatMap(([state, places]) =>
+  places.map((name) => ({ name, state }))
+);
+const keralaPlaceDescriptions = {
+  'Fort Kochi Beach': 'Walk along the historic waterfront, see the Chinese fishing nets and explore Fort Kochi’s cafés and heritage streets.',
+  'Cherai Beach, Kochi': 'A relaxed coastal stretch on Vypin Island, known for its broad sandy shore and calm village atmosphere.',
+  'Wonderla Kochi': 'A family amusement and water park near Kochi with rides, pools and full-day attractions.',
+  'Alappuzha Backwaters': 'Cruise palm-lined canals and lagoons around Alappuzha, the gateway to Kerala’s famous backwaters.',
+  'Munnar tea gardens': 'Explore rolling tea plantations, cool mountain air and viewpoints in Kerala’s Western Ghats.',
+  'Wayanad wildlife and waterfalls': 'Discover forest trails, waterfalls and wildlife landscapes in the hills of northern Kerala.',
+  'Varkala Beach': 'Visit the dramatic cliffside promenade above the Arabian Sea and the beach below.',
+  'Kovalam Beach': 'Relax by Kovalam’s curved shoreline, lighthouse views and coastal cafés south of Thiruvananthapuram.',
+  'Athirappilly Waterfalls': 'See Kerala’s best-known waterfall surrounded by forest in the Thrissur district.',
+  'Periyar Wildlife Sanctuary': 'Explore the forests and lake of the Periyar reserve near Thekkady.'
+};
+const placeImageSearchTerms = {
+  'Fort Kochi Beach': 'Fort Kochi Beach Kerala',
+  'Cherai Beach, Kochi': 'Cherai Beach Kerala',
+  'Wonderla Kochi': 'Veegaland Kochi Wonderla',
+  'Alappuzha Backwaters': 'Alappuzha Kerala backwaters',
+  'Munnar tea gardens': 'Munnar Kerala tea plantations',
+  'Wayanad wildlife and waterfalls': 'Wayanad Kerala waterfalls',
+  'Varkala Beach': 'Varkala Beach Kerala',
+  'Kovalam Beach': 'Kovalam Beach Kerala',
+  'Athirappilly Waterfalls': 'Athirappilly Falls Kerala',
+  'Periyar Wildlife Sanctuary': 'Periyar Wildlife Sanctuary Thekkady'
+};
+const placeImageCache = new Map();
+let placeImageRequestQueue = Promise.resolve();
+const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+}[character]));
+const placeDescription = (spot) => keralaPlaceDescriptions[spot.name]
+  || `Discover ${spot.name} in ${spot.state}, a memorable stop for local sights and experiences.`;
+const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+const requestCommonsPhotos = async (url, retries = 2) => {
+  const response = await fetch(url);
+  if (response.ok) return response.json();
+  if (response.status === 429 && retries > 0) {
+    const retryAfter = Number(response.headers.get('Retry-After')) || 4;
+    await wait(Math.max(1, retryAfter) * 1000);
+    return requestCommonsPhotos(url, retries - 1);
+  }
+  throw new Error(`Wikimedia Commons returned ${response.status}.`);
+};
+const fetchPlaceImages = (spot) => {
+  const cacheKey = `${spot.name}|${spot.state}`;
+  if (!placeImageCache.has(cacheKey)) {
+    const search = new URLSearchParams({
+      action: 'query',
+      generator: 'search',
+      gsrnamespace: '6',
+      gsrsearch: placeImageSearchTerms[spot.name] || `${spot.name} ${spot.state}`,
+      gsrlimit: '4',
+      prop: 'imageinfo',
+      iiprop: 'url|extmetadata',
+      iiurlwidth: '1100',
+      format: 'json',
+      origin: '*'
+    });
+    const imageRequest = placeImageRequestQueue
+      .then(() => wait(900))
+      .then(() => requestCommonsPhotos(`https://commons.wikimedia.org/w/api.php?${search}`))
+      .then((data) => {
+        const pages = Object.values(data.query?.pages || {});
+        const photos = pages.flatMap((page) => page.imageinfo || []).map((image) => {
+          const artistMarkup = image.extmetadata?.Artist?.value || '';
+          const artist = artistMarkup
+            ? new DOMParser().parseFromString(artistMarkup, 'text/html').body.textContent.trim()
+            : 'Wikimedia Commons contributor';
+          return {
+            url: image.thumburl || image.url,
+            sourceUrl: image.descriptionurl,
+            title: image.extmetadata?.ObjectName?.value || image.title || 'Wikimedia Commons image',
+            artist,
+            license: image.extmetadata?.LicenseShortName?.value?.replace(/<[^>]*>/g, '') || 'See source for license'
+          };
+        });
+        return photos.filter((photo, index) =>
+          photo.url && photos.findIndex((candidate) => candidate.url === photo.url) === index
+        ).slice(0, 4);
+      })
+      .catch((error) => {
+        placeImageCache.delete(cacheKey);
+        throw error;
+      });
+    placeImageRequestQueue = imageRequest.then(() => undefined, () => undefined);
+    placeImageCache.set(cacheKey, imageRequest);
+  }
+  return placeImageCache.get(cacheKey);
+};
+const showPlacePhoto = (image, credit, photo, spot) => {
+  if (!photo) {
+    image.closest('.place-photo')?.classList.add('is-unavailable');
+    return;
+  }
+  image.src = photo.url;
+  image.addEventListener('error', () => {
+    image.closest('.place-photo')?.classList.add('is-unavailable');
+    if (credit) credit.textContent = 'Photo unavailable';
+  }, { once: true });
+  image.addEventListener('load', () => image.closest('.place-photo')?.classList.remove('is-loading'), { once: true });
+  if (credit) {
+    const attribution = `Photo by ${photo.artist} · Wikimedia Commons · ${photo.license}`;
+    credit.href = photo.sourceUrl;
+    credit.textContent = attribution;
+    credit.title = `${attribution} — ${photo.title}`;
+    credit.hidden = false;
+  }
+  image.alt = `Photograph of ${spot.name}, ${spot.state}`;
+};
+const loadPlaceImage = (image, credit, spot) => {
+  image.alt = `Photograph of ${spot.name}, ${spot.state}`;
+  image.loading = 'lazy';
+  image.closest('.place-photo')?.classList.add('is-loading');
+  fetchPlaceImages(spot).then((photos) => {
+    if (!image.isConnected) return;
+    showPlacePhoto(image, credit, photos[0], spot);
+  }).catch((error) => {
+    if (!image.isConnected) return;
+    image.closest('.place-photo')?.classList.add('is-unavailable');
+    if (credit) credit.textContent = 'Photo unavailable';
+    console.warn(`Unable to load a photo for ${spot.name}.`, error);
+  });
+};
+const notifyPlanChanged = () => document.dispatchEvent(new Event('trip-plan-change'));
+
 const packageCatalog = [
   ['rajasthan-royal', 'Rajasthan Royal Circuit', 'Jaipur, Jodhpur & Udaipur', '6 Nights / 7 Days', '₹28,999', '4.9', ['Hotel', 'Fort Tours', 'Desert Camp', 'Breakfast'], 'Best Seller'],
   ['kashmir-valley', 'Kashmir Valley Escape', 'Srinagar, Gulmarg & Pahalgam', '5 Nights / 6 Days', '₹24,999', '4.9', ['Houseboat', 'Shikara Ride', 'Valley Tour', 'Breakfast'], 'Popular'],
@@ -88,91 +254,114 @@ const packageCatalog = [
   ['gujarat-culture', 'Gujarat Culture Circuit', 'Ahmedabad, Rann of Kutch & Dwarka', '6 Nights / 7 Days', '₹27,999', '4.8', ['Hotel', 'Rann Visit', 'Temple Tour', 'Breakfast'], ''],
   ['uttar-pradesh-spiritual', 'Uttar Pradesh Spiritual Trail', 'Agra, Lucknow & Varanasi', '5 Nights / 6 Days', '₹21,999', '4.9', ['Hotel', 'Taj Mahal', 'Ganga Aarti', 'Guide'], 'Best Seller'],
   ['central-india-wildlife', 'Central India Nature Tour', 'Bhopal, Pachmarhi & Khajuraho', '5 Nights / 6 Days', '₹20,999', '4.7', ['Hotel', 'Forest Visit', 'Heritage Tour', 'Car'], '']
-].map(([id, name, destination, duration, price, rating, includes, badge], index) => ({ id, name, destination, duration, price, basePrice: Number(price.replace(/[^0-9]/g, '')), rating, includes, badge, image: imageSet[index % imageSet.length], description: `A carefully planned ${name.toLowerCase()} covering ${destination} with local experiences and comfortable travel.` }));
+].map(([id, name, destination, duration, price, rating, includes, badge], index) => ({ id, name, destination, duration, price, basePrice: Number(price.replace(/[^0-9]/g, '')), rating, includes, badge, image: id === 'kerala-backwaters' ? 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80' : imageSet[index % imageSet.length], description: `A carefully planned ${name.toLowerCase()} covering ${destination} with local experiences and comfortable travel.` }));
 
 const renderTravelCatalog = () => {
   const destinationGrid = document.querySelector('.dest-grid');
   const packageGrid = document.querySelector('.package-grid');
   if (destinationGrid) {
-    destinationGrid.innerHTML = indiaSpots.map((spot) => `
-      <article class="dest-card reveal">
-        <div class="dest-img-box"><img src="${spot.image}" alt="${spot.name}, ${spot.state}" loading="lazy"></div>
-        <div class="dest-info"><h3>${spot.name}</h3><span class="dest-location">${spot.state}</span><p>${spot.summary}</p>
-          <div class="dest-footer"><span class="dest-price">From ${spot.price}</span><a href="#packages" class="btn btn-outline dest-btn">View Packages</a></div>
-        </div>
-      </article>`).join('');
+    const destinationState = document.getElementById('destinationState');
+    const selectedState = destinationState?.value || 'Kerala';
+    const selectedPlaces = touristPlaces.filter((spot) => spot.state === selectedState);
+    const heading = document.getElementById('destinationHeading');
+    const description = document.getElementById('destinationDescription');
+    if (heading) heading.textContent = `${selectedState}, one beautiful stop at a time`;
+    if (description) description.textContent = `Explore ${selectedPlaces.length} featured places in ${selectedState}. Open any gallery to see four photos of the destination.`;
+    destinationGrid.innerHTML = selectedPlaces.map((spot) => {
+      const placeIndex = touristPlaces.indexOf(spot);
+      return `
+        <article class="dest-card reveal" data-place-index="${placeIndex}">
+          <div class="dest-img-box place-photo is-loading">
+            <img alt="Photograph of ${escapeHtml(spot.name)}, ${escapeHtml(spot.state)}">
+            <a class="photo-credit" target="_blank" rel="noopener noreferrer" hidden></a>
+          </div>
+          <div class="dest-info">
+            <span class="dest-location">${escapeHtml(spot.state)} · ${escapeHtml(spot.name.split(',')[0])}</span>
+            <h3>${escapeHtml(spot.name)}</h3>
+            <p>${escapeHtml(placeDescription(spot))}</p>
+            <div class="dest-footer">
+              <button type="button" class="btn btn-outline dest-btn" data-explore-place="${placeIndex}">View 4 photos</button>
+              <a href="#contact" class="btn btn-primary dest-btn" data-requires-auth data-state="${escapeHtml(spot.state)}" data-spot="${escapeHtml(spot.name)}">Plan trip</a>
+            </div>
+          </div>
+        </article>`;
+    }).join('');
+    destinationGrid.querySelectorAll('.dest-card').forEach((card) => {
+      const spot = touristPlaces[Number(card.dataset.placeIndex)];
+      loadPlaceImage(card.querySelector('img'), card.querySelector('.photo-credit'), spot);
+    });
   }
   if (packageGrid) {
-    packageGrid.innerHTML = packageCatalog.map((item) => `
+    const featuredPackages = [...packageCatalog].sort((left, right) =>
+      Number(right.id === 'kerala-backwaters') - Number(left.id === 'kerala-backwaters')
+    );
+    packageGrid.innerHTML = featuredPackages.map((item) => `
       <article class="package-card reveal" data-package="${item.id}">
         <div class="package-img-box"><img src="${item.image}" alt="${item.name}" loading="lazy">${item.badge ? `<span class="package-badge">${item.badge}</span>` : ''}</div>
         <div class="package-body"><div class="package-top"><h3>${item.name}</h3><span class="package-rating">★ ${item.rating}</span></div>
           <p class="package-duration">${item.destination} · ${item.duration}</p><ul class="package-includes">${item.includes.map((include) => `<li>✓ ${include}</li>`).join('')}</ul>
-          <p class="package-price">From <strong>${item.price}</strong></p><div class="package-actions"><button class="btn btn-outline view-details" data-package="${item.id}">View Package</button><a href="#contact" class="btn btn-primary">Book Now</a></div>
+          <p class="package-price">From <strong>${item.price}</strong></p><div class="package-actions"><button class="btn btn-outline view-details" data-package="${item.id}">View Package</button><a href="#contact" class="btn btn-primary" data-requires-auth>Book Now</a></div>
         </div>
       </article>`).join('');
   }
 };
 
 const populateDestinationOptions = () => {
-  const searchSelect = document.getElementById('searchDestination');
-  if (searchSelect) {
-    searchSelect.innerHTML = '<option value="">Select destination</option>';
-    indiaSpots.forEach((spot) => searchSelect.add(new Option(`${spot.name}, ${spot.state}`, spot.name)));
-  }
   const stateSelect = document.getElementById('contactState');
-  const stateOptions = document.getElementById('stateOptions');
+  const destinationState = document.getElementById('destinationState');
   const spotPicker = document.getElementById('spotPicker');
-  const states = [...new Set(indiaSpots.map((spot) => spot.state))].sort();
-  if (stateOptions) states.forEach((state) => stateOptions.appendChild(new Option(state, state)));
+  const spotSearch = document.getElementById('spotSearch');
+  const spotNoResults = document.getElementById('spotNoResults');
+  const states = touristPlacesByState.map(([state]) => state).sort((left, right) => left.localeCompare(right));
+  states.forEach((state) => stateSelect?.add(new Option(state, state)));
+  if (destinationState) {
+    states.forEach((state) => destinationState.add(new Option(state, state)));
+    destinationState.value = 'Kerala';
+    destinationState.addEventListener('change', renderTravelCatalog);
+  }
   const renderSpots = () => {
     if (!spotPicker) return;
-    const spots = indiaSpots.filter((spot) => spot.state.toLowerCase() === stateSelect?.value.trim().toLowerCase());
-    spotPicker.innerHTML = spots.length ? spots.map((spot) => `<label class="spot-option"><input type="checkbox" value="${spot.name}"> ${spot.name}</label>`).join('') : '<p class="wizard-hint">Type a state exactly as shown to see places.</p>';
-    spotPicker.querySelectorAll('input').forEach((input) => input.addEventListener('change', updateWizard));
-    // The wizard initializes after the state options are built.
+    const spots = touristPlaces.filter((spot) =>
+      spot.state === stateSelect?.value
+    );
+    spotPicker.innerHTML = spots.length
+      ? spots.map((spot) => `<label class="spot-option"><input type="checkbox" value="${spot.name}"> ${spot.name}</label>`).join('')
+      : '<p class="wizard-hint">Choose a state to see famous places.</p>';
+    spotPicker.querySelectorAll('input').forEach((input) => input.addEventListener('change', notifyPlanChanged));
+    if (spotNoResults) spotNoResults.hidden = true;
+    const stateHint = document.getElementById('stateHint');
+    if (stateHint) stateHint.textContent = stateSelect?.value
+      ? `${stateSelect.value}: ${spots.length} famous places to choose from.`
+      : 'Choose a state to see its famous tourist places.';
   };
-  stateSelect?.addEventListener('input', renderSpots);
+  const filterSpots = () => {
+    if (!spotPicker) return;
+    const query = spotSearch?.value.trim().toLocaleLowerCase() || '';
+    let visibleCount = 0;
+    spotPicker.querySelectorAll('.spot-option').forEach((option) => {
+      const matches = option.textContent.toLocaleLowerCase().includes(query);
+      option.hidden = !matches;
+      if (matches) visibleCount += 1;
+    });
+    if (spotNoResults) spotNoResults.hidden = !query || visibleCount > 0;
+  };
+  stateSelect?.addEventListener('change', () => {
+    if (spotSearch) spotSearch.value = '';
+    const packageSelect = document.getElementById('contactPackage');
+    if (packageSelect) packageSelect.value = 'custom';
+    renderSpots();
+    notifyPlanChanged();
+  });
+  spotSearch?.addEventListener('input', filterSpots);
   const packageSelect = document.getElementById('contactPackage');
   if (packageSelect) packageCatalog.forEach((item) => packageSelect.add(new Option(`${item.name} - ${item.price}`, item.id)));
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderTravelCatalog();
   populateDestinationOptions();
+  renderTravelCatalog();
   const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
-  const slides = [...document.querySelectorAll('.hero-slide')];
-  const dots = document.getElementById('heroDots');
-  let currentSlide = 0;
-  let slideTimer;
-
-  const showSlide = (index) => {
-    currentSlide = (index + slides.length) % slides.length;
-    slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === currentSlide));
-    document.querySelectorAll('.hero-dot').forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === currentSlide));
-  };
-
-  const restartCarousel = () => {
-    clearInterval(slideTimer);
-    slideTimer = setInterval(() => showSlide(currentSlide + 1), 6000);
-  };
-
-  if (slides.length && dots) {
-    slides.forEach((_, index) => {
-      const dot = document.createElement('button');
-      dot.className = 'hero-dot';
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Show slide ${index + 1}`);
-      dot.addEventListener('click', () => { showSlide(index); restartCarousel(); });
-      dots.appendChild(dot);
-    });
-    document.getElementById('prevSlide').addEventListener('click', () => { showSlide(currentSlide - 1); restartCarousel(); });
-    document.getElementById('nextSlide').addEventListener('click', () => { showSlide(currentSlide + 1); restartCarousel(); });
-    showSlide(0);
-    restartCarousel();
-  }
-
   hamburger?.addEventListener('click', () => {
     navbar.classList.toggle('nav-open');
     hamburger.setAttribute('aria-label', navbar.classList.contains('nav-open') ? 'Close menu' : 'Open menu');
@@ -190,10 +379,59 @@ document.addEventListener('DOMContentLoaded', () => {
       return false;
     }
   };
+  const placeSearch = document.getElementById('placeSearch');
+  const placeSearchResults = document.getElementById('placeSearchResults');
+  const renderPlaceSearch = () => {
+    if (!placeSearch || !placeSearchResults) return;
+    const query = placeSearch.value.trim().toLocaleLowerCase();
+    if (!query) {
+      placeSearchResults.hidden = true;
+      placeSearchResults.replaceChildren();
+      placeSearch.setAttribute('aria-expanded', 'false');
+      return;
+    }
+    const matches = touristPlaces
+      .filter((spot) => `${spot.name} ${spot.state}`.toLocaleLowerCase().includes(query))
+      .sort((left, right) => {
+        const leftStarts = left.name.toLocaleLowerCase().startsWith(query) ? 0 : 1;
+        const rightStarts = right.name.toLocaleLowerCase().startsWith(query) ? 0 : 1;
+        return leftStarts - rightStarts || left.name.localeCompare(right.name);
+      })
+      .slice(0, 8);
+    placeSearchResults.innerHTML = matches.length
+      ? matches.map((spot) => {
+        const placeIndex = touristPlaces.indexOf(spot);
+        return `
+        <article class="place-search-result" data-place-index="${placeIndex}">
+          <div class="place-photo search-place-photo is-loading">
+            <img alt="Photograph of ${escapeHtml(spot.name)}, ${escapeHtml(spot.state)}">
+            <a class="photo-credit" target="_blank" rel="noopener noreferrer" hidden></a>
+          </div>
+          <div class="place-result-copy">
+            <span>${escapeHtml(spot.state)}</span>
+            <strong>${escapeHtml(spot.name)}</strong>
+          </div>
+          <button type="button" class="btn btn-outline" data-explore-place="${placeIndex}">Explore</button>
+          <a href="#contact" class="btn btn-primary" data-requires-auth data-state="${escapeHtml(spot.state)}" data-spot="${escapeHtml(spot.name)}">Plan trip</a>
+        </article>`;
+      }).join('')
+      : '<p class="place-search-empty">No matching places found. Try another place or state.</p>';
+    placeSearchResults.hidden = false;
+    placeSearch.setAttribute('aria-expanded', 'true');
+    placeSearchResults.querySelectorAll('.place-search-result').forEach((result) => {
+      const spot = touristPlaces[Number(result.dataset.placeIndex)];
+      loadPlaceImage(result.querySelector('img'), result.querySelector('.photo-credit'), spot);
+    });
+  };
+  let placeSearchTimer;
+  placeSearch?.addEventListener('input', () => {
+    clearTimeout(placeSearchTimer);
+    placeSearchTimer = setTimeout(renderPlaceSearch, 180);
+  });
   document.getElementById('searchForm')?.addEventListener('submit', (event) => {
     event.preventDefault();
-    const destination = document.getElementById('searchDestination').value;
-    setMessage('searchResult', destination ? `Great choice. Showing trips for ${destination}.` : 'Please choose a destination to search.');
+    renderPlaceSearch();
+    placeSearch?.focus();
   });
   const wizardSteps = [...document.querySelectorAll('.wizard-step')];
   const wizardProgress = document.getElementById('wizardProgress');
@@ -267,15 +505,50 @@ document.addEventListener('DOMContentLoaded', () => {
     if (final) final.innerHTML = `<strong>Your trip plan</strong><br>${plan.days} days / ${plan.nights} nights · ${plan.travelers} travellers · ${plan.state || 'State not selected'}<br>Places: ${plan.spots.join(', ') || 'Not selected'}<br>Transport: ${plan.transport || 'Not selected'} · Hotel: ${hotelName?.value || 'Not selected'} · Food: ${document.getElementById('foodType')?.value || 'Not selected'}<br><br><strong>Final trip cost: ₹${plan.finalCost.toLocaleString('en-IN')}</strong> · ₹${plan.perPerson.toLocaleString('en-IN')} per person`;
     if (wizardProgress) wizardProgress.innerHTML = ['Duration', 'Travellers', 'State', 'Places', 'Hotel', 'Food', 'Transport', 'AI Plan', 'Cost', 'Review'].map((label, index) => `<span class="${index + 1 === currentStep ? 'active' : ''}">${index + 1} ${label}</span>`).join('');
   };
+  document.addEventListener('trip-plan-change', updateWizard);
   const validateStep = () => {
     const plan = getPlan();
     if (currentStep === 1 && (!plan.days || plan.nights < 0 || plan.nights >= plan.days + 1)) return 'Select a valid duration and nights first.';
     if (currentStep === 2 && (!plan.adults || !plan.travelers)) return 'Select at least one adult traveller.';
     if (currentStep === 3 && !plan.state) return 'Select a state.';
-    if (currentStep === 4 && (!plan.packageItem || plan.spots.length < 1)) return 'Select a package and at least one place.';
+    if (currentStep === 4 && !plan.spots.length) return 'Choose at least one famous place in your selected state.';
     return '';
   };
   const showStep = (step) => { currentStep = Math.min(10, Math.max(1, step)); wizardSteps.forEach((section, index) => section.classList.toggle('active', index + 1 === currentStep)); wizardBack.style.visibility = currentStep === 1 ? 'hidden' : 'visible'; wizardNext.hidden = currentStep === 10; updateWizard(); };
+  const selectPlaceForBooking = (state, place) => {
+    const stateSelect = document.getElementById('contactState');
+    const packageSelect = document.getElementById('contactPackage');
+    if (stateSelect) {
+      stateSelect.value = state;
+      stateSelect.dispatchEvent(new Event('change'));
+    }
+    const placeCheckbox = [...document.querySelectorAll('#spotPicker input')].find((input) => input.value === place);
+    if (placeCheckbox) {
+      placeCheckbox.checked = true;
+      placeCheckbox.dispatchEvent(new Event('change'));
+    }
+    if (packageSelect) packageSelect.value = 'custom';
+    showStep(4);
+    window.location.hash = '#contact';
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+  document.addEventListener('trip-place-selected', (event) => {
+    const { state, place } = event.detail || {};
+    if (state && place) selectPlaceForBooking(state, place);
+  });
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const exploreButton = event.target.closest('[data-explore-place]');
+    if (exploreButton) {
+      const spot = touristPlaces[Number(exploreButton.dataset.explorePlace)];
+      if (spot) openPlaceDetails(spot);
+      return;
+    }
+    const bookingLink = event.target.closest('a[data-requires-auth][data-state][data-spot]');
+    if (!bookingLink || !firebaseAuth.currentUser) return;
+    event.preventDefault();
+    selectPlaceForBooking(bookingLink.dataset.state, bookingLink.dataset.spot);
+  });
   wizardNext?.addEventListener('click', () => { const error = validateStep(); if (error) return setMessage('contactMessageResult', error); suggestTransport(); updateWizard(); showStep(currentStep + 1); });
   wizardBack?.addEventListener('click', () => showStep(currentStep - 1));
   document.getElementById('contactTransport')?.addEventListener('change', (event) => { event.target.dataset.edited = 'true'; updateWizard(); });
@@ -297,6 +570,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('contactForm')?.addEventListener('submit', async (event) => {
     event.preventDefault();
+    const contactForm = document.getElementById('contactForm');
+    if (!firebaseAuth.currentUser) {
+      setMessage('contactMessageResult', 'Please sign in before sending a trip enquiry.');
+      window.location.hash = '#account';
+      return;
+    }
+    const incompleteField = contactForm.querySelector('.wizard-step.active input:invalid');
+    if (incompleteField) {
+      incompleteField.reportValidity();
+      return;
+    }
     const plan = getPlan();
     const enquiryId = `ENQ-${new Date().getFullYear()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     const payload = {
@@ -306,7 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
       phone: document.getElementById('contactPhone').value,
       state: plan.state,
       destination: plan.spots[0] || '',
-      packageId: plan.packageItem?.id || '',
+      packageId: plan.packageItem?.id || 'custom',
       travelers: plan.travelers,
       stayDays: plan.days,
       hotelPlan: plan.hotelCategory,
@@ -316,20 +600,90 @@ document.addEventListener('DOMContentLoaded', () => {
       tripPlan: { enquiryId, ...plan, hotelName: document.getElementById('hotelName').value, roomType: document.getElementById('roomType').value, rooms: Number(document.getElementById('roomCount').value) || 1, foodType: document.getElementById('foodType').value, mealPlan: document.getElementById('mealPlan').selectedOptions[0].textContent, pickupLocation: document.getElementById('pickupLocation').value, recommendations: document.getElementById('recommendationBox').textContent }
     };
     const saved = await submitToFirebase(payload, 'contactMessageResult', `Your enquiry has been successfully submitted. Enquiry ID: ${enquiryId}`);
-    if (saved) document.getElementById('contactForm').reset();
+    if (saved) {
+      contactForm.reset();
+      document.getElementById('contactState').dispatchEvent(new Event('change'));
+      document.getElementById('contactTransport').dataset.edited = '';
+      suggestTransport();
+      showStep(1);
+      setMessage('contactMessageResult', `Your enquiry has been successfully submitted. Enquiry ID: ${enquiryId}`);
+    }
   });
 
   const packageDetails = Object.fromEntries(packageCatalog.map((item) => [item.id, [item.name, item.description]]));
   const modal = document.getElementById('packageModal');
   const modalContent = document.getElementById('modalContent');
   const closeModal = () => { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); };
+  const openPlaceDetails = (spot) => {
+    const gallery = document.createElement('div');
+    gallery.className = 'place-gallery-grid';
+    const galleryStatus = document.createElement('p');
+    galleryStatus.className = 'place-gallery-status';
+    galleryStatus.textContent = 'Loading destination photos...';
+    const galleryFrames = Array.from({ length: 4 }, () => {
+      const frame = document.createElement('div');
+      frame.className = 'place-photo place-gallery-photo is-loading';
+      const image = document.createElement('img');
+      image.loading = 'lazy';
+      image.alt = `Photo ${gallery.children.length + 1} of ${spot.name}, ${spot.state}`;
+      const credit = document.createElement('a');
+      credit.className = 'photo-credit';
+      credit.target = '_blank';
+      credit.rel = 'noopener noreferrer';
+      credit.hidden = true;
+      frame.append(image, credit);
+      gallery.append(frame);
+      return { frame, image, credit };
+    });
+    const location = document.createElement('span');
+    location.className = 'dest-location';
+    location.textContent = spot.state;
+    const title = document.createElement('h2');
+    title.textContent = spot.name;
+    const description = document.createElement('p');
+    description.textContent = placeDescription(spot);
+    const bookLink = document.createElement('a');
+    bookLink.href = '#contact';
+    bookLink.className = 'btn btn-primary';
+    bookLink.textContent = 'Plan a trip to this place';
+    bookLink.dataset.requiresAuth = '';
+    bookLink.dataset.state = spot.state;
+    bookLink.dataset.spot = spot.name;
+    bookLink.dataset.placeIndex = String(touristPlaces.indexOf(spot));
+
+    modalContent.replaceChildren(location, title, description, galleryStatus, gallery, bookLink);
+    fetchPlaceImages(spot).then((photos) => {
+      if (!modal.classList.contains('open') || !gallery.isConnected) return;
+      galleryStatus.textContent = photos.length
+        ? `Showing ${photos.length} ${photos.length === 1 ? 'photo' : 'photos'} for ${spot.name}.`
+        : `No Commons photos are currently available for ${spot.name}.`;
+      galleryFrames.forEach(({ image, credit }, index) => {
+        showPlacePhoto(image, credit, photos[index], spot);
+      });
+    }).catch((error) => {
+      if (!gallery.isConnected) return;
+      galleryStatus.textContent = 'Photos could not be loaded right now. Please try again.';
+      galleryFrames.forEach(({ image }) => image.closest('.place-photo')?.classList.add('is-unavailable'));
+      console.warn(`Unable to load the photo gallery for ${spot.name}.`, error);
+    });
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  };
   document.querySelectorAll('.view-details').forEach((button) => button.addEventListener('click', () => {
     const detail = packageDetails[button.dataset.package];
     if (!detail) return;
-    modalContent.innerHTML = `<h2>${detail[0]}</h2><p>${detail[1]}</p><a class="btn btn-primary" href="#contact">Plan this trip</a>`;
+    modalContent.innerHTML = `<h2>${detail[0]}</h2><p>${detail[1]}</p><a class="btn btn-primary" href="#contact" data-package="${button.dataset.package}" data-requires-auth>Plan this trip</a>`;
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
   }));
+  modalContent.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const bookingLink = event.target.closest('a[data-requires-auth]');
+    if (!bookingLink) return;
+    const packageSelect = document.getElementById('contactPackage');
+    if (packageSelect && bookingLink.dataset.package) packageSelect.value = bookingLink.dataset.package;
+    closeModal();
+  });
   document.getElementById('modalClose')?.addEventListener('click', closeModal);
   document.getElementById('modalOverlay')?.addEventListener('click', closeModal);
 

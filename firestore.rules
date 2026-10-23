@@ -21,7 +21,8 @@ service cloud.firestore {
         && request.resource.data.email.size() <= 254
         && request.resource.data.createdAt == request.time
         && (request.resource.data.type == 'newsletter'
-          || (request.resource.data.name is string
+          || (request.auth != null
+            && request.resource.data.name is string
             && request.resource.data.name.size() > 0
             && request.resource.data.name.size() <= 120
             && request.resource.data.state is string
@@ -34,11 +35,11 @@ service cloud.firestore {
             && request.resource.data.packageId.size() > 0
             && request.resource.data.travelers is int
             && request.resource.data.travelers >= 1
-            && request.resource.data.travelers <= 20
+            && request.resource.data.travelers <= 60
             && request.resource.data.stayDays is int
             && request.resource.data.stayDays >= 1
             && request.resource.data.stayDays <= 30
-            && request.resource.data.hotelPlan in ['budget', 'standard', 'premium']
+            && request.resource.data.hotelPlan in ['budget', 'standard', 'premium', 'luxury']
             && request.resource.data.transport is string
             && request.resource.data.transport.size() > 0
             && request.resource.data.estimatedPrice is string

@@ -15,6 +15,10 @@ The hosted site uses Firebase Hosting, Firebase Authentication, and Firestore. T
 
 The public `#account` section supports Firebase email/password registration and sign-in. Each account displays Firebase's unique user ID and stores the user's name and mobile number in their own protected `users/{uid}` profile. Password recovery is sent by email for both user and admin accounts; Firebase does not provide SMS password reset for email/password accounts.
 
+Visitors can browse the homepage, destinations, and packages without signing in. An account is required to open the trip planner and submit a travel enquiry; choosing a booking action sends signed-out visitors to sign in and then returns them to the selected trip. Newsletter subscriptions remain available without an account.
+
+The homepage features Kerala by default and lets visitors browse curated attractions in all 28 states and 8 union territories with the state selector. Each attraction has a four-photo gallery loaded from Wikimedia Commons, with creator, license and source credits for every photo. The all-India attraction search and trip planner remain available. Visitors can explore places without an account; planning or booking a trip still requires sign-in, and the selected state and place are carried into the planner. The header and footer use `assets/sri-travel-logo.png`, and WhatsApp chat links open a conversation with the agency at +91 87785 85817.
+
 To provision the first hosted administrator, create an Email/Password user in Firebase Console under Authentication, then assign that user's UID the `{ "admin": true }` custom claim from a trusted environment as shown below. The browser cannot safely create this claim itself.
 
 If the correct account says it has no admin access, assign the claim from a trusted environment with the Firebase Admin SDK. Do not put a service-account key or claim-setting code in the browser:

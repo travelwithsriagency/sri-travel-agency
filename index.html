@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SRI EXPLORE — Explore More. Travel Better. Curated travel packages across India's most beautiful destinations.">
-  <title>SRI EXPLORE — Explore More. Travel Better.</title>
+  <meta name="description" content="Explore famous tourist places across India with Sri Travel Agency. Browse destination photos and plan a trip state by state.">
+  <title>Explore India — Sri Travel Agency</title>
   <!-- Google Fonts: Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,54 +13,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- ============================ ACCOUNT ENTRY GATE ============================ -->
-  <section class="entry-gate" id="entryGate" aria-label="Account sign in">
-    <div class="entry-gate-panel">
-      <p class="section-tag">SRI EXPLORE</p>
-      <h1>Begin your next journey</h1>
-      <p class="entry-gate-intro">Sign in to explore destinations, build trip plans and keep your bookings connected to one unique account ID.</p>
-      <div class="auth-tabs" role="tablist" aria-label="Entry actions">
-        <button class="auth-tab active" id="entryLoginTab" type="button">Sign in</button>
-        <button class="auth-tab" id="entryRegisterTab" type="button">Create account</button>
-      </div>
-      <form id="entryLoginForm" class="auth-form">
-        <label for="entryLoginEmail">Email</label>
-        <input id="entryLoginEmail" type="email" autocomplete="username" required>
-        <label for="entryLoginPassword">Password</label>
-        <input id="entryLoginPassword" type="password" autocomplete="current-password" required>
-        <button class="btn btn-primary" type="submit">Enter SRI Explore</button>
-        <button class="auth-link" id="entryForgotPassword" type="button">Forgot password?</button>
-        <p class="form-message" id="entryLoginMessage" role="alert"></p>
-      </form>
-      <form id="entryRegisterForm" class="auth-form" hidden>
-        <label for="entryName">Name</label>
-        <input id="entryName" autocomplete="name" required>
-        <label for="entryEmail">Email</label>
-        <input id="entryEmail" type="email" autocomplete="email" required>
-        <label for="entryPassword">Unique password</label>
-        <input id="entryPassword" type="password" autocomplete="new-password" minlength="8" required>
-        <button class="btn btn-primary" type="submit">Create and enter</button>
-        <p class="form-message" id="entryRegisterMessage" role="alert"></p>
-      </form>
-      <p class="entry-gate-note">Your unique account ID is generated securely after registration.</p>
-    </div>
-  </section>
   <!-- ============================ NAVBAR ============================ -->
   <header class="navbar" id="navbar">
-    <a href="#home" class="logo">🌍 SRI EXPLORE</a>
+    <a href="#home" class="logo"><img class="logo-image" src="assets/sri-travel-logo.png" alt=""><span>SRI TRAVEL AGENCY</span></a>
     <nav>
       <ul class="nav-links" id="navLinks">
         <li><a href="#home" class="nav-link active">Home</a></li>
-        <li><a href="#destinations" class="nav-link">Destinations</a></li>
+        <li><a href="#destinations" class="nav-link">Explore India</a></li>
         <li><a href="#packages" class="nav-link">Packages</a></li>
         <li><a href="#experiences" class="nav-link">Experiences</a></li>
         <li><a href="#about" class="nav-link">About Us</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-        <li><a href="#account" class="nav-link">Account</a></li>
-        <li><a href="#admin" class="nav-link">Admin</a></li>
+        <li><a href="#account" class="nav-link" id="accountNavLink">Sign in</a></li>
       </ul>
     </nav>
-    <a href="#packages" class="btn btn-accent nav-book">Book Now</a>
+    <a href="#contact" class="btn btn-accent nav-book" data-requires-auth>Book a trip</a>
     <!-- Mobile hamburger -->
     <button class="hamburger" id="hamburger" aria-label="Open menu">
       <span></span>
@@ -69,236 +35,46 @@
     </button>
   </header>
   <!-- ============================ HERO CAROUSEL ============================ -->
-  <section class="hero" id="home">
-    <!-- Slide 1: Rajasthan -->
-    <div class="hero-slide slide-rajasthan active">
-      <div class="slide-content">
-        <span class="slide-destination">RAJASTHAN</span>
-        <h1 class="slide-title">Where Royal India Comes Alive</h1>
-        <p class="slide-text">Palaces, desert sunsets, colourful markets and stories from India's royal heartland.</p>
-        <a href="#destinations" class="btn btn-light slide-btn">Explore Rajasthan</a>
+  <section class="hero kerala-hero" id="home">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="slide-destination">KERALA · INDIA</span>
+        <h1 class="slide-title">A little closer to paradise.</h1>
+        <p class="slide-text">From quiet backwaters to misty tea hills, find the Kerala trip that feels like yours.</p>
+        <a href="#destinations" class="btn btn-light slide-btn">Explore Kerala <span aria-hidden="true">→</span></a>
       </div>
+      <div class="hero-note"><span>01</span><span>Backwaters · Beaches · Hills</span></div>
     </div>
-    <!-- Slide 2: Ladakh -->
-    <div class="hero-slide slide-ladakh">
-      <div class="slide-content">
-        <span class="slide-destination">LADAKH</span>
-        <h1 class="slide-title">Find Your High-Altitude Escape</h1>
-        <p class="slide-text">Ride through dramatic mountain passes, monasteries and wide-open Himalayan valleys.</p>
-        <a href="#destinations" class="btn btn-light slide-btn">Explore Ladakh</a>
-      </div>
-    </div>
-    <!-- Slide 3: Andaman -->
-    <div class="hero-slide slide-andaman">
-      <div class="slide-content">
-        <span class="slide-destination">ANDAMAN</span>
-        <h1 class="slide-title">Blue Water, Wild Horizons</h1>
-        <p class="slide-text">Discover clear lagoons, coral reefs and island days along India's eastern coast.</p>
-        <a href="#destinations" class="btn btn-light slide-btn">Explore Andaman</a>
-      </div>
-    </div>
-    <!-- Slide 4: Goa -->
-    <div class="hero-slide slide-goa">
-      <div class="slide-content">
-        <span class="slide-destination">GOA</span>
-        <h1 class="slide-title">Feel the Freedom</h1>
-        <p class="slide-text">Beaches, nightlife, adventure and unforgettable moments.</p>
-        <a href="#destinations" class="btn btn-light slide-btn">Explore Goa</a>
-      </div>
-    </div>
-    <!-- Slide 5: Kerala -->
-    <div class="hero-slide slide-kerala">
-      <div class="slide-content">
-        <span class="slide-destination">KERALA</span>
-        <h1 class="slide-title">God's Own Country</h1>
-        <p class="slide-text">Backwaters, greenery, beaches, culture and peaceful experiences.</p>
-        <a href="#destinations" class="btn btn-light slide-btn">Explore Kerala</a>
-      </div>
-    </div>
-    <!-- Carousel controls -->
-    <button class="hero-arrow hero-prev" id="prevSlide" aria-label="Previous slide">&#10094;</button>
-    <button class="hero-arrow hero-next" id="nextSlide" aria-label="Next slide">&#10095;</button>
-    <div class="hero-dots" id="heroDots"></div>
   </section>
-  <!-- ============================ SEARCH / TRIP FINDER ============================ -->
+  <!-- ============================ PLACE SEARCH ============================ -->
   <section class="search-section">
     <div class="container">
       <div class="search-card reveal">
-        <h2 class="search-heading">Find Your Perfect Trip</h2>
-        <form class="search-form" id="searchForm" novalidate>
-          <div class="form-group">
-            <label for="searchDestination">Destination</label>
-            <select id="searchDestination">
-              <option value="">Select destination</option>
-              <option>Rajasthan</option>
-              <option>Ladakh</option>
-              <option>Andaman</option>
-              <option>Goa</option>
-              <option>Kerala</option>
-              <option>Kashmir</option>
-              <option>Himachal Pradesh</option>
-              <option>Uttarakhand</option>
-              <option>Uttar Pradesh</option>
-              <option>Tamil Nadu</option>
-              <option>Meghalaya</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="searchDate">Travel Date</label>
-            <input type="date" id="searchDate">
-          </div>
-          <div class="form-group">
-            <label for="searchTravelers">Travelers</label>
-            <input type="number" id="searchTravelers" min="1" max="20" value="2">
-          </div>
-          <div class="form-group">
-            <label for="searchType">Travel Type</label>
-            <select id="searchType">
-              <option>Honeymoon</option>
-              <option>Family</option>
-              <option>Adventure</option>
-              <option>Solo</option>
-              <option>Friends</option>
-              <option>Luxury</option>
-              <option>Budget</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary search-btn">Search Trips</button>
+        <h2 class="search-heading">Search a place to explore</h2>
+        <p class="search-intro">Search famous attractions across India, or select a state below to browse its places and photo galleries.</p>
+        <form class="search-form" id="searchForm" role="search">
+          <label class="visually-hidden" for="placeSearch">Search for a tourist place or state</label>
+          <input id="placeSearch" type="search" placeholder="Try Fort Kochi, Munnar, Goa, Taj Mahal..." autocomplete="off" aria-controls="placeSearchResults" aria-expanded="false">
+          <button type="submit" class="btn btn-primary search-btn">Search places</button>
         </form>
-        <p class="search-result" id="searchResult"></p>
+        <div class="place-search-results" id="placeSearchResults" aria-live="polite" hidden></div>
       </div>
     </div>
   </section>
-  <!-- ============================ POPULAR DESTINATIONS ============================ -->
+  <!-- ============================ STATE DESTINATIONS ============================ -->
   <section class="section" id="destinations">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-tag">Destinations</span>
-        <h2 class="section-title">Explore Popular Destinations</h2>
-        <p class="section-subtitle">Discover places that make every journey unforgettable.</p>
+        <span class="section-tag">Explore India</span>
+        <h2 class="section-title" id="destinationHeading">Kerala, one beautiful stop at a time</h2>
+        <p class="section-subtitle" id="destinationDescription">Explore famous places across India, state by state, with photo galleries for each attraction.</p>
       </div>
-      <div class="dest-grid">
-        <!-- Card: Rajasthan -->
-        <article class="dest-card reveal">
-          <div class="dest-img-box">
-            <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=800&q=80" alt="Hawa Mahal in Jaipur, Rajasthan" loading="lazy">
-          </div>
-          <div class="dest-info">
-            <h3>Rajasthan</h3>
-            <span class="dest-location">Jaipur, Jodhpur &amp; Udaipur</span>
-            <p>Royal forts, desert camps, heritage hotels and vibrant bazaars.</p>
-            <div class="dest-footer">
-              <span class="dest-price">From ₹18,999</span>
-              <a href="#packages" class="btn btn-outline dest-btn">View Details</a>
-            </div>
-          </div>
-        </article>
-        <!-- Card: Kashmir -->
-        <article class="dest-card reveal">
-          <div class="dest-img-box">
-            <img src="https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=800&q=80" alt="Mountains and lake in Kashmir" loading="lazy">
-          </div>
-          <div class="dest-info">
-            <h3>Kashmir</h3>
-            <span class="dest-location">Srinagar &amp; Gulmarg</span>
-            <p>Shikara rides, alpine valleys, gardens and snowy mountain views.</p>
-            <div class="dest-footer">
-              <span class="dest-price">From ₹16,999</span>
-              <a href="#packages" class="btn btn-outline dest-btn">View Details</a>
-            </div>
-          </div>
-        </article>
-        <!-- Card: Ladakh -->
-        <article class="dest-card reveal">
-          <div class="dest-img-box">
-            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80" alt="Himalayan landscape near Ladakh" loading="lazy">
-          </div>
-          <div class="dest-info">
-            <h3>Ladakh</h3>
-            <span class="dest-location">Leh &amp; Nubra Valley</span>
-            <p>High passes, ancient monasteries, lakes and unforgettable road trips.</p>
-            <div class="dest-footer">
-              <span class="dest-price">From ₹22,999</span>
-              <a href="#packages" class="btn btn-outline dest-btn">View Details</a>
-            </div>
-          </div>
-        </article>
-        <!-- Card: Himachal Pradesh -->
-        <article class="dest-card reveal">
-          <div class="dest-img-box">
-            <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80" alt="Mountain valley in Himachal Pradesh" loading="lazy">
-          </div>
-          <div class="dest-info">
-            <h3>Himachal Pradesh</h3>
-            <span class="dest-location">Manali &amp; Shimla</span>
-            <p>Cool mountain air, cedar forests, cafés and scenic valleys.</p>
-            <div class="dest-footer">
-              <span class="dest-price">From ₹13,999</span>
-              <a href="#packages" class="btn btn-outline dest-btn">View Details</a>
-            </div>
-          </div>
-        </article>
-        <!-- Card: Andaman -->
-        <article class="dest-card reveal">
-          <div class="dest-img-box">
-            <img src="https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=800&q=80" alt="Clear blue water around the Andaman Islands" loading="lazy">
-          </div>
-          <div class="dest-info">
-            <h3>Andaman</h3>
-            <span class="dest-location">Port Blair &amp; Havelock</span>
-            <p>Coral reefs, island beaches, water sports and peaceful sunsets.</p>
-            <div class="dest-footer">
-              <span class="dest-price">From ₹24,999</span>
-              <a href="#packages" class="btn btn-outline dest-btn">View Details</a>
-            </div>
-          </div>
-        </article>
-        <!-- Card: Uttarakhand -->
-        <article class="dest-card reveal">
-          <div class="dest-img-box">
-            <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80" alt="Mountain scenery in Uttarakhand" loading="lazy">
-          </div>
-          <div class="dest-info">
-            <h3>Uttarakhand</h3>
-            <span class="dest-location">Rishikesh &amp; Nainital</span>
-            <p>River adventures, forest trails, hill towns and temple journeys.</p>
-            <div class="dest-footer">
-              <span class="dest-price">From ₹12,999</span>
-              <a href="#packages" class="btn btn-outline dest-btn">View Details</a>
-            </div>
-          </div>
-        </article>
-        <!-- Card: Goa -->
-        <article class="dest-card reveal">
-          <div class="dest-img-box">
-            <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80" alt="Goa beach with palm trees" loading="lazy">
-          </div>
-          <div class="dest-info">
-            <h3>Goa</h3>
-            <span class="dest-location">India</span>
-            <p>Sun, sand, nightlife and Portuguese charm.</p>
-            <div class="dest-footer">
-              <span class="dest-price">From ₹11,999</span>
-              <a href="#packages" class="btn btn-outline dest-btn">View Details</a>
-            </div>
-          </div>
-        </article>
-        <!-- Card: Kerala -->
-        <article class="dest-card reveal">
-          <div class="dest-img-box">
-            <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80" alt="Kerala backwaters houseboat" loading="lazy">
-          </div>
-          <div class="dest-info">
-            <h3>Kerala</h3>
-            <span class="dest-location">India</span>
-            <p>Backwaters, tea gardens and ayurvedic calm.</p>
-            <div class="dest-footer">
-              <span class="dest-price">From ₹14,999</span>
-              <a href="#packages" class="btn btn-outline dest-btn">View Details</a>
-            </div>
-          </div>
-        </article>
+      <div class="destination-filter">
+        <label for="destinationState">Choose a state or union territory</label>
+        <select id="destinationState"></select>
       </div>
+      <div class="dest-grid"></div>
+      <p class="photo-credit-note">Photos from Wikimedia Commons. Open a place’s four-photo gallery to see image creators, licenses and source pages.</p>
     </div>
   </section>
   <!-- ============================ TRAVEL PACKAGES ============================ -->
@@ -306,8 +82,8 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Packages</span>
-        <h2 class="section-title">Featured Travel Packages</h2>
-        <p class="section-subtitle">Handpicked itineraries designed for every kind of traveler.</p>
+        <h2 class="section-title">Kerala trips and India favourites</h2>
+        <p class="section-subtitle">Start with our Kerala backwater trail, then explore popular itineraries across India.</p>
       </div>
       <div class="package-grid">
         <!-- Package 1 -->
@@ -669,18 +445,24 @@
             </div>
           </div>
         </div>
-        <form class="contact-form reveal trip-wizard" id="contactForm" novalidate>
+        <div class="booking-auth-prompt" id="bookingAuthPrompt">
+          <span class="booking-auth-icon" aria-hidden="true">✦</span>
+          <h3>Your trip, your way</h3>
+          <p>Sign in or create a free account to build a trip plan and send your booking enquiry.</p>
+          <a href="#account" class="btn btn-primary" data-requires-auth>Sign in to start planning</a>
+        </div>
+        <form class="contact-form reveal trip-wizard" id="contactForm" novalidate hidden>
           <div class="wizard-progress" id="wizardProgress"></div>
           <section class="wizard-step active" data-step="1"><span class="step-label">Step 1</span><h3>How long is your trip?</h3><div class="contact-row"><div class="form-group"><label for="tripDays">Days</label><input id="tripDays" type="number" min="1" max="30" value="3" required></div><div class="form-group"><label for="tripNights">Nights</label><input id="tripNights" type="number" min="0" max="29" value="2" required></div></div><p class="wizard-hint">Nights normally equal days minus one. You can adjust them for an overnight or day-return trip.</p></section>
           <section class="wizard-step" data-step="2"><span class="step-label">Step 2</span><h3>Who is travelling?</h3><div class="contact-row"><div class="form-group"><label for="adults">Adults</label><input id="adults" type="number" min="1" max="40" value="2" required></div><div class="form-group"><label for="children">Children</label><input id="children" type="number" min="0" max="20" value="0"></div></div><p class="booking-details" id="travellerSummary"></p></section>
-          <section class="wizard-step" data-step="3"><span class="step-label">Step 3</span><h3>Which state would you like to explore?</h3><div class="form-group"><label for="contactState">Search state</label><input id="contactState" list="stateOptions" placeholder="Type a state name" required><datalist id="stateOptions"></datalist></div><p class="booking-details" id="stateHint">Select a state to see its places.</p></section>
-          <section class="wizard-step" data-step="4"><span class="step-label">Step 4</span><h3>Choose places to explore</h3><div class="form-group"><label for="contactPackage">Travel package</label><select id="contactPackage" required><option value="">Select package</option></select></div><p class="wizard-hint" id="spotRule"></p><div class="spot-picker" id="spotPicker"></div><p class="booking-suggestion" id="spotSuggestion"></p></section>
+          <section class="wizard-step" data-step="3"><span class="step-label">Step 3</span><h3>Which state or territory would you like to explore?</h3><div class="form-group"><label for="contactState">Choose a state or union territory</label><select id="contactState" required><option value="">Select a state or territory</option></select></div><p class="booking-details" id="stateHint">Choose a state to see its famous tourist places.</p></section>
+          <section class="wizard-step" data-step="4"><span class="step-label">Step 4</span><h3>Choose places to explore</h3><div class="form-group"><label for="contactPackage">Trip type</label><select id="contactPackage"><option value="custom">Build my own itinerary</option></select></div><div class="form-group"><label for="spotSearch">Find a place in this state</label><input id="spotSearch" type="search" placeholder="Search the selected state"></div><p class="wizard-hint" id="spotRule"></p><div class="spot-picker" id="spotPicker"></div><p class="wizard-hint" id="spotNoResults" hidden>No places match your search in this state.</p><p class="booking-suggestion" id="spotSuggestion"></p></section>
           <section class="wizard-step" data-step="5"><span class="step-label">Step 5</span><h3>Choose your stay</h3><div class="contact-row"><div class="form-group"><label for="hotelCategory">Hotel category</label><select id="hotelCategory"><option value="budget">Budget</option><option value="standard" selected>Standard</option><option value="premium">Premium</option><option value="luxury">Luxury</option></select></div><div class="form-group"><label for="hotelName">Suggested hotel</label><select id="hotelName"></select></div></div><div class="contact-row"><div class="form-group"><label for="roomType">Room type</label><select id="roomType"><option>Double room</option><option>Family room</option><option>Triple room</option></select></div><div class="form-group"><label for="roomCount">Rooms</label><input id="roomCount" type="number" min="1" max="10" value="1"></div></div><p class="booking-details" id="hotelEstimate"></p></section>
           <section class="wizard-step" data-step="6"><span class="step-label">Step 6</span><h3>Food preferences</h3><div class="contact-row"><div class="form-group"><label for="foodType">Food type</label><select id="foodType"><option>Vegetarian</option><option>Non-Vegetarian</option><option>Both</option><option>Jain</option><option>Vegan</option><option>Other</option></select></div><div class="form-group"><label for="mealPlan">Meals</label><select id="mealPlan"><option value="1">Breakfast</option><option value="1">Lunch</option><option value="1">Dinner</option><option value="3" selected>Breakfast + Lunch + Dinner</option></select></div></div><p class="booking-details" id="foodEstimate"></p></section>
           <section class="wizard-step" data-step="7"><span class="step-label">Step 7</span><h3>Transportation</h3><div class="form-group"><label for="contactTransport">Recommended vehicle</label><select id="contactTransport"><option>Car-4</option><option>Car-7</option><option>Maxi Cab</option><option>Traveller</option><option>Mini Bus</option><option>Tourist Bus</option><option>Train</option><option>Airline</option></select></div><div class="contact-row"><div class="form-group"><label for="pickupLocation">Pickup / drop location</label><input id="pickupLocation" placeholder="Example: Coimbatore airport"></div><div class="form-group"><label for="distanceEstimate">Estimated distance</label><input id="distanceEstimate" readonly></div></div><p class="booking-details" id="transportEstimate"></p></section>
           <section class="wizard-step" data-step="8"><span class="step-label">Step 8</span><h3>AI trip analysis</h3><div class="booking-suggestion" id="analysisBox"></div><div class="booking-details" id="recommendationBox"></div></section>
           <section class="wizard-step" data-step="9"><span class="step-label">Step 9</span><h3>Cost breakdown</h3><div class="cost-breakdown" id="costBreakdown"></div><label class="percentage-setting">Service / planning percentage <input id="servicePercent" type="number" min="0" max="30" value="10">%</label></section>
-          <section class="wizard-step" data-step="10"><span class="step-label">Step 10</span><h3>Review and send enquiry</h3><div class="contact-row"><div class="form-group"><label for="contactName">Name</label><input id="contactName" required></div><div class="form-group"><label for="contactEmail">Email</label><input id="contactEmail" type="email" required></div></div><div class="form-group"><label for="contactPhone">Phone</label><input id="contactPhone" required></div><div class="booking-details" id="finalSummary"></div><button type="submit" class="btn btn-primary contact-submit">Proceed to Enquiry</button><p class="contact-message" id="contactMessageResult"></p></section>
+          <section class="wizard-step" data-step="10"><span class="step-label">Step 10</span><h3>Review and send enquiry</h3><div class="contact-row"><div class="form-group"><label for="contactName">Name</label><input id="contactName" autocomplete="name" required></div><div class="form-group"><label for="contactEmail">Email</label><input id="contactEmail" type="email" autocomplete="email" required></div></div><div class="form-group"><label for="contactPhone">Phone</label><input id="contactPhone" type="tel" autocomplete="tel" required></div><div class="booking-details" id="finalSummary"></div><button type="submit" class="btn btn-primary contact-submit">Proceed to Enquiry</button><p class="contact-message" id="contactMessageResult"></p></section>
           <div class="wizard-actions"><button type="button" class="btn btn-outline" id="wizardBack">Back</button><button type="button" class="btn btn-primary" id="wizardNext">Continue</button></div>
         </form>
       </div>
@@ -704,7 +486,7 @@
           <input id="userLoginEmail" type="email" autocomplete="username" required>
           <label for="userLoginPassword">Password</label>
           <input id="userLoginPassword" type="password" autocomplete="current-password" required>
-          <button class="btn btn-primary" type="submit">Sign in</button>
+          <button class="btn btn-primary" type="submit">Sign in and continue</button>
           <button class="auth-link" id="userForgotPassword" type="button">Forgot password?</button>
           <p class="form-message" id="userLoginMessage" role="alert"></p>
         </form>
@@ -792,54 +574,34 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col footer-brand">
-          <h3 class="footer-logo">🌍 SRI EXPLORE</h3>
-          <p class="footer-tagline">Explore More. Travel Better.</p>
-          <div class="social-icons">
-            <a href="#" aria-label="Instagram" class="social-icon">📷</a>
-            <a href="#" aria-label="Facebook" class="social-icon">📘</a>
-            <a href="#" aria-label="YouTube" class="social-icon">▶️</a>
-            <a href="#" aria-label="WhatsApp" class="social-icon">💬</a>
-          </div>
+          <a href="#home" class="footer-brand-link"><img class="footer-logo-image" src="assets/sri-travel-logo.png" alt=""><span>SRI TRAVEL AGENCY</span></a>
         </div>
         <div class="footer-col">
-          <h4>Quick Links</h4>
+          <h4>Explore</h4>
           <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#destinations">Destinations</a></li>
             <li><a href="#packages">Packages</a></li>
-            <li><a href="#experiences">Experiences</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact">Plan a trip</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Popular Destinations</h4>
+          <h4>Contact</h4>
           <ul>
-            <li><a href="#packages">Rajasthan</a></li>
-            <li><a href="#packages">Ladakh</a></li>
-            <li><a href="#packages">Andaman</a></li>
-            <li><a href="#packages">Kashmir</a></li>
-            <li><a href="#packages">Kerala</a></li>
-            <li><a href="#packages">Goa</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Support</h4>
-          <ul>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Terms &amp; Conditions</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Cancellation Policy</a></li>
+            <li>Chennai, Tamil Nadu</li>
+            <li><a href="tel:+918778585817">+91 87785 85817</a></li>
+            <li><a href="mailto:sritravelagency@gmail.com">sritravelagency@gmail.com</a></li>
+            <li><a href="https://wa.me/918778585817?text=Hello%20Sri%20Travel%20Agency%2C%20I%27d%20like%20help%20planning%20a%20trip." target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 Sri Explore. All Rights Reserved.</p>
+        <p>© 2026 Sri Travel Agency.</p>
       </div>
     </div>
   </footer>
   <!-- ============================ FLOATING BUTTONS ============================ -->
-  <a href="#" class="whatsapp-btn" id="whatsappBtn" target="_blank" rel="noopener"
+  <a href="https://wa.me/918778585817?text=Hello%20Sri%20Travel%20Agency%2C%20I%27d%20like%20help%20planning%20a%20trip." class="whatsapp-btn" id="whatsappBtn" target="_blank" rel="noopener noreferrer"
      aria-label="Chat with us on WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp chat" width="28" height="28">
   </a>
@@ -857,4 +619,3 @@
 Filter files…
 /C:/Users/TOSHIBA/Documents/kimi/workspace
 /sri-explore
-
